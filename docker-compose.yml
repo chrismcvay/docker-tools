@@ -1,0 +1,49 @@
+version: '3.6'
+services:
+  vscode:
+    image: vscode:latest
+    container_name: vscode
+    environment:
+      DISPLAY:
+    volumes:
+      - ${XAUTHORITY}:/home/developer/.Xauthority
+      - type: bind
+        source: /home/chris/develop/projects
+        target: /home/developer/projects
+      - type: bind
+        source: /home/chris/.config/Code
+        target: /home/developer/.config/Code
+    network_mode: "host"
+  unity:
+    image: unity:latest
+    container_name: unity
+    environment:
+      DISPLAY:
+    volumes:
+      - ${XAUTHORITY}:/home/developer/.Xauthority
+      - type: bind
+        source: /home/chris/develop/projects
+        target: /home/developer/projects
+      - type: bind
+        source: /home/chris/.config/unity3d
+        target: /home/developer/.config/unity3d
+    network_mode: "host"
+  codeblocks:
+    image: codeblocks:latest
+    container_name: codeblocks
+    environment:
+      DISPLAY:
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+    volumes:
+      - ${XAUTHORITY}:/home/developer/.Xauthority
+      - type: bind
+        source: /home/chris/develop/projects
+        target: /home/developer/projects
+      - type: bind
+        source: /home/chris/.config/codeblocks
+        target: /home/developer/.config/codeblocks
+    network_mode: "host"
+
